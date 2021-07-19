@@ -1,0 +1,7 @@
+{
+	"appId": "com.academind.memories",
+	"appName": "Memories",
+	"webDir": "build",
+	"bundledWebRuntime": false,
+	"cordova": {}
+}

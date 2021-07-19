@@ -1,10 +1,11 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'ionic-react2',
+  appId: 'com.academind.memories',
+  appName: 'Memories',
   webDir: 'build',
-  bundledWebRuntime: false
+  bundledWebRuntime: false,
+  cordova: {}
 };
 
 export default config;
