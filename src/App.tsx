@@ -7,6 +7,7 @@ import {happy, sad} from 'ionicons/icons';
 import GoodMemories from './Pages/GoodMemories';
 import BadMemories from './Pages/BadMemories';
 import NewMemories from './Pages/NewMemories';
+// import MemoriesContextProvider from './data/MemoriesContectProvider';
 
 
 /* Core CSS required for Ionic components to work properly */
@@ -34,6 +35,7 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonTabs>
+     
       <IonRouterOutlet>
           <Route path="/good-memories">
             <GoodMemories/>
@@ -46,6 +48,7 @@ const App: React.FC = () => (
           </Route>
           <Redirect to="/good-memories" />
       </IonRouterOutlet>
+     
       <IonTabBar slot="bottom">
         <IonTabButton href="/good-memories" tab="good">
           <IonIcon icon={happy}/>

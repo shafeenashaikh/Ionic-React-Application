@@ -15,12 +15,12 @@ import {
 } from "@ionic/react";
 import { add } from "ionicons/icons";
 
+
 const GoodMemories: React.FC = () => {
     return(
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                  
                     <IonTitle>Good Memories</IonTitle>
                     {isPlatform('ios') && (
                         <IonButtons slot="end">

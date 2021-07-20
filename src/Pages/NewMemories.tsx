@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, {useState, useRef} from "react";
 import { 
     IonBackButton, 
     IonButton, 
@@ -13,25 +13,39 @@ import {
      IonPage, 
      IonRow, 
      IonTitle, 
-     IonToolbar 
+     IonToolbar,
+     IonSelect,
+     IonSelectOption
     } from "@ionic/react";
-import { Camera } from "@capacitor/camera";
+import { Camera, CameraResultType} from "@capacitor/camera";
+// import { base64FromPath} from '@ionic/react-hooks/Filesystem';
 
-// import {camera} from 'ionicons/icons';
+// import {camera} from '@ionicons/icons';
 
-import {CameraResultType } from "@capacitor/camera";
-
+// import MemoriesContext from "../data/memories-context";
 import './NewMemories.css';
-// import { async } from "q";
 
-// const { camera } = plugins;
+// const { Filesystem } = plugins;
 
 const NewMemories: React.FC = () => {
 
 const [takenPhoto, setTakenPhoto] = useState<{
-    path: string;
+    path: string | undefined;
     preview: string;
 }>();
+
+const [chosenMemoryType, setChosenMemoryType] = useState<'good' | 'bad'>(
+    'good'
+    );
+
+// const memoriesCtx = useContext(MemoriesContext);
+
+const titleRef = useRef<HTMLIonInputElement>(null);
+
+const selectMemoryTypeHandler = (event: CustomEvent) => {
+    const selectedMemoryType = event.detail.value;
+    setChosenMemoryType(selectedMemoryType);
+};
 
 const takePhotoHandler =async () => {
 const photo = await Camera.getPhoto({
@@ -39,8 +53,8 @@ const photo = await Camera.getPhoto({
         quality: 80,
         width: 500
     });
-   
-    if(!photo || !photo.path || !photo.webPath) {
+
+    if(!photo || !photo.webPath) {
         return;
     }
 
@@ -49,6 +63,29 @@ const photo = await Camera.getPhoto({
         preview: photo.webPath
     });
 };
+
+// const addMemoryHandler = () => {
+
+const enteredTitle = titleRef.current?.value;
+
+if (
+    !enteredTitle ||
+    enteredTitle.toString().trim().length === 0 ||
+    !takenPhoto ||
+    !chosenMemoryType
+) {
+ 
+}
+//     const fileName = new Data().getTime() + '.jpeg';
+
+//     const base64 = await base64FromPath(takenPhoto!.preview);
+//     Filesystem.writeFile({
+//         path: fileName,
+//         data: base64,
+//         directory: FilesystemDirectory.Data
+//     });
+// memoriesCtx.addMemory( enteredTitle.toString(), chosenMemoryType);
+// };
 
     return(
         <IonPage>
@@ -66,8 +103,19 @@ const photo = await Camera.getPhoto({
                         <IonCol>
                             <IonItem>
                                 <IonLabel position="floating">Memory Title</IonLabel>
-                                <IonInput type="text"></IonInput>
+                                <IonInput type="text" ref={titleRef}></IonInput>
                             </IonItem>
+                        </IonCol>
+                    </IonRow>
+                    <IonRow>
+                        <IonCol>
+                            <IonSelect 
+                                onIonChange={selectMemoryTypeHandler} 
+                                value={chosenMemoryType}
+                            >
+                                <IonSelectOption value="good">Good Memory</IonSelectOption>
+                                <IonSelectOption value="bad">Bad Memory</IonSelectOption>
+                            </IonSelect>
                         </IonCol>
                     </IonRow>
                     <IonRow className="ion-text-center">
